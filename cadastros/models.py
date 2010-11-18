@@ -2,9 +2,16 @@ from django.db import models
 
 # Create your models here.
 
+class AreaDeAtuacao(models.Model):
+
+    nome = models.CharField(max_length=200)
+    
+    def __unicode__(self):
+        return self.nome
+
 class Fornecedor(models.Model):
 
-    GENDER_CHOICES = (
+    CHOICES = (
         ('l', 'Livros e Periodicos'),
         ('e', 'Equipamentos Eletronicos'),
         ('r', 'Restaurantes'),
@@ -13,20 +20,23 @@ class Fornecedor(models.Model):
         ('v', 'Veiculos'),
         ('g', 'Grafica'),
     )
-    razao = models.CharField(blank=True,max_length=200,verbose_name=u'Razao Social')
-    fantasia = models.CharField(max_length=200)
+    razao = models.CharField(max_length=200,verbose_name=u'Razao Social')
+    fantasia = models.CharField(blank=True,max_length=200)
     cnpj = models.IntegerField(blank=True,max_length=14,verbose_name=u'CNPJ/CPF')
+    endereco = models.CharField(blank=True,max_length=200)    
     cidade = models.CharField(blank=True,max_length=200)
-    endereco = models.CharField(blank=True,max_length=200)
-    telefone = models.CharField(max_length=12,verbose_name=u'Telefone')
+    estado = models.CharField(blank=True,max_length=200)
+    telefone = models.CharField(max_length=12,verbose_name=u'Telefone',help_text="xxxxxxxxxx")
     fax = models.CharField(blank=True,max_length=12,verbose_name=u'Fax:(Opcional)')
     email = models.EmailField(blank=True,max_length=200)
-    area = models.CharField(blank=True,max_length=1, choices=GENDER_CHOICES,verbose_name=u'Area de atuacao')
+    area = models.ForeignKey(AreaDeAtuacao)
     site = models.URLField(blank=True,max_length=200)
     obs = models.TextField(blank=True,verbose_name=u'Observacao')
     data = models.DateField(auto_now=True)
     
     def __unicode__(self):
         return self.razao
+
+
 
 
