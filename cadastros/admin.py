@@ -6,9 +6,8 @@ from django.contrib.localflavor.br.forms import BRCNPJField,BRPhoneNumberField
 class FornecedorForm(forms.ModelForm):
     class Meta:
         model = Fornecedor
-    cnpj = forms.IntegerField()
-    telefone = BRPhoneNumberField()
-    fax = BRPhoneNumberField()
+    telefone = BRPhoneNumberField(help_text="o campo deve ser preenchido da seguinte maneira: xxxxxxxxxx")
+    fax = BRPhoneNumberField(help_text="o campo deve ser preenchido da seguinte maneira: xxxxxxxxxx")
     #area = forms.ModelChoiceField(
        # queryset = AreaDeAtuacao.objects.all(), empty_label=None,   
     #)
